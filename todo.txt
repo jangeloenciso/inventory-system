@@ -1,0 +1,2 @@
+receive data from forms 
+display inventory list in index
