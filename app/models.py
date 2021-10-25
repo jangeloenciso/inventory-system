@@ -10,5 +10,3 @@ class Product(db.Model):
     price = db.Column(db.Integer)
     on_hand = db.Column(db.Integer)
 
-    def __init__(self, product):
-        self.product = product
