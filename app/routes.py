@@ -1,3 +1,5 @@
+from itertools import product
+from flask.helpers import url_for
 from werkzeug.wrappers import request
 from app import app, db
 from flask import render_template, redirect, request
@@ -24,3 +26,13 @@ def add_product():
         db.session.add(product)
         db.session.commit()
     return render_template('add_product.html', form=form)
+
+@app.route('/delete_product/<int:id>', methods=['GET', 'POST'])
+def delete_product(id):
+    product = Product.query.get(id)
+    if product is None:
+        return redirect(url_for('index'))
+    db.session.delete(product)
+    db.session.commit()
+    print('deleted')
+    return redirect(url_for('index'))

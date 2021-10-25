@@ -1,5 +1,12 @@
 {% extends "base.html" %} {% block content %}
 
 <a href="{{ url_for('add_product')}}"><button>Add Product</button></a>
-{% for product in products %} {{ product.product_name }} {% endfor %} {%
-endblock %}
+{% for product in products %}
+<p>Product name: {{ product.product_name }}</p>
+<p>{{ product.product_desc }}</p>
+<p>Stock: {{ product.qty_stock }}</p>
+<p>Price: {{ product.price }} PHP</p>
+<p>On Hand: {{ product.on_hand }}</p>
+<a href="{{ url_for('delete_product', id=product.id) }}"> Delete</a>
+<br />
+{% endfor %} {% endblock %}
