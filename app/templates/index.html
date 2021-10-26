@@ -1,12 +1,31 @@
 {% extends "base.html" %} {% block content %}
 
-<a href="{{ url_for('add_product')}}"><button>Add Product</button></a>
-{% for product in products %}
-<p>Product name: {{ product.product_name }}</p>
-<p>{{ product.product_desc }}</p>
-<p>Stock: {{ product.qty_stock }}</p>
-<p>Price: {{ product.price }} PHP</p>
-<p>On Hand: {{ product.on_hand }}</p>
-<a href="{{ url_for('delete_product', id=product.id) }}"> Delete</a>
-<br />
-{% endfor %} {% endblock %}
+<table border="2" width="80%" cellpadding="5" cellspacing="3">
+    <tr>
+        <th colspan="7">
+            <h3><br />IVENTORY</h3>
+        </th>
+    </tr>
+    <button><a href={{ url_for('add_product') }}>Add Item</a></button>
+    <th>Product Name</th>
+    <th>Description</th>
+    <th>Stock</th>
+    <th>Price</th>
+    <th>On Hand</th>
+    {% for product in products %}
+    <tr align="center">
+        <td>{{ product.product_name }}</td>
+        <td>{{ product.product_desc }}</td>
+        <td>{{ product.qty_stock }}</td>
+        <td>{{ product.price }} PHP</td>
+        <td>{{ product.on_hand }}</td>
+        <td>
+            <a href="{{ url_for('delete_product', id=product.id) }}"> Delete</a>
+        </td>
+        <td>
+            <a href="{{ url_for('update_product', id=product.id) }}"> Update</a>
+        </td>
+
+        {% endfor %} {% endblock %}
+    </tr>
+</table>
