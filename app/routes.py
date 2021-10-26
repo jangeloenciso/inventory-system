@@ -6,6 +6,7 @@ from flask import render_template, redirect, request
 from app.models import Product
 from app.forms import ProductForm
 
+@app.route('/', methods=['GET' , 'POST'])
 @app.route('/index', methods=['GET', 'POST'])
 def index():
     products = Product.query.all()
@@ -36,3 +37,23 @@ def delete_product(id):
     db.session.commit()
     print('deleted')
     return redirect(url_for('index'))
+
+@app.route('/update_product/<int:id>', methods=['GET', 'POST'])
+def update_product(id):
+    product = Product.query.get(id)
+    form = ProductForm(obj=product)
+    if form.validate_on_submit():
+        product.product_name = form.product_name.data
+        product.product_desc = form.product_desc.data
+        product.qty_stock = form.qty_stock.data
+        product.price = form.price.data
+        product.on_hand = form.on_hand.data
+        db.session.commit()
+        return redirect(url_for('index'))
+    elif request.method == 'GET':
+        form.product_name.data = product.product_name
+        form.product_desc.data = product.product_desc
+        form.qty_stock.data = product.qty_stock
+        form.price.data = product.price
+        form.on_hand.data = product.on_hand
+    return render_template('add_product.html', form=form)
