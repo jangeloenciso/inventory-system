@@ -1,2 +1,5 @@
-receive data from forms 
-display inventory list in index
+add update functionality
+
+
+least important:
+UI bullshit
